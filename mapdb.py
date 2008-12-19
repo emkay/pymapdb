@@ -98,7 +98,7 @@ def main():
 								pk = clean_pk(keys[1])
 								table_pk = pk.split(' ')
 								fk = clean_fk(keys[0])
-								G.add_edge('table: ' + table_pk[0] + ' primary key:' + table_pk[1], 'table: ' + row[0] + ' foreign key:' + fk, color='blue', arrowType='diamond')
+								G.add_edge('table: ' + table_pk[0] + ' primary key:' + table_pk[1], 'table: ' + row[0] + ' foreign key:' + fk)
 
 	cur1.close()
 	db.close()
