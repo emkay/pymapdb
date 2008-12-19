@@ -1,0 +1,3 @@
+A simple MySQL DB mapping application. Feed it a MySQL InnoDB database and it will produce a graph and/or Graphviz code.
+
+This application depends on graphviz being installed as well as pygraphviz and MySQLdb.

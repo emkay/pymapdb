@@ -1,7 +1,4 @@
-"""
-This application depends on graphviz being installed as well as pygraphviz
-and MySQLdb.
-"""
+#!/usr/bin/env python
 import pygraphviz as pgv
 import MySQLdb
 import re, sys, getpass
