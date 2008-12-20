@@ -49,7 +49,7 @@ def main():
 	(options, arg) = parse_setup()
 
 	if options.password:
-		password = getpass.unix_getpass("Enter your password:")
+		password = getpass.unix_getpass("Enter your password:", sys.stderr)
 	else:
 		password = ''
 
