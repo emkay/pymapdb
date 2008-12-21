@@ -41,13 +41,14 @@ def parse_setup():
 		help="Compile down to graphviz and send to STDOUT")
 	parser.add_option("-n", "--noimage", action="store_true", dest="noimage",
 		help="Do not make an image. Implies that you meant to say -g as well.")
-	(options, arg) = parser.parse_args(sys.argv[1:])
+	if not sys.argv[1:]:
+		parser.print_help()
+		exit(2)
+	(options, arg) = parser.parse_args()
 	return (options, arg)
-							
-def main():
-	
-	(options, arg) = parse_setup()
 
+def main():
+	(options, arg) = parse_setup()
 	if options.password:
 		password = getpass.unix_getpass("Enter your password:", sys.stderr)
 	else:
