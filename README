@@ -1,3 +1,18 @@
 A simple MySQL DB mapping application. Feed it a MySQL InnoDB database and it will produce a graph and/or Graphviz code.
 
 This application depends on graphviz being installed as well as pygraphviz and MySQLdb.
+
+Usage: mapdb.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -u USER, --user=USER  MySQL user name
+  -p, --password        Require a password.
+  -d DATABASE, --database=DATABASE
+                        MySQL database name
+  -f FILENAME, --file=FILENAME
+                        Name of file to place compiled graphviz in.
+  -c PROGRAM, --program=PROGRAM
+  -g, --graphviz        Compile down to graphviz and send to STDOUT
+  -n, --noimage         Do not make an image. Implies that you meant to say -g
+                        as well.
