@@ -53,36 +53,13 @@ def parse_setup():
 
 def main():
 	(options, arg) = parse_setup()
-	if options.password:
-		password = getpass.unix_getpass("Enter your password:", sys.stderr)
-	else:
-		password = ''
-
-	if options.username:
-		username = options.username
-	else:
-		username = ''
-
-	if options.database:
-		database = options.database
-	else:
-		database = ''
+	password = getpass.unix_getpass("Enter your password:", sys.stderr) if options.password else ''
+	username = options.username if options.username else ''
+	database = options.database if options.database else ''
+	filename = options.filename if options.filename else 'temp.png'
+	program  = options.program if options.program and options.program in PROGRAMS else 'circo'
+	shape    = options.shape if options.shape else 'box'
 	
-	if options.filename:
-		filename = options.filename
-	else:
-		filename = 'temp.png'
-
-	if options.program and options.program in PROGRAMS:
-		program = options.program
-	else:
-		program = 'circo'
-	
-	if options.shape:
-		shape = options.shape
-	else:
-		shape = 'box'
-			
 	db = MySQLdb.connect(host='127.0.0.1', user=username, passwd=password, db=database)
 	cur1 = db.cursor()
 	numrows = cur1.execute('SHOW tables')
