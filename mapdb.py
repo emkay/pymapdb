@@ -5,6 +5,7 @@ import re, sys, getpass
 from optparse import OptionParser
 
 PROGRAMS = ['dot', 'circo', 'neato']
+DEFAULTS = {'user': '', 'password': '', 'database': '', 'filename': 'temp.png', 'shape': 'box', 'program': 'circo'}
 
 def write(G):
 	s=G.string()
@@ -53,12 +54,12 @@ def parse_setup():
 
 def main():
 	(options, arg) = parse_setup()
-	password = getpass.unix_getpass("Enter your password:", sys.stderr) if options.password else ''
-	username = options.username if options.username else ''
-	database = options.database if options.database else ''
-	filename = options.filename if options.filename else 'temp.png'
-	program  = options.program if options.program and options.program in PROGRAMS else 'circo'
-	shape    = options.shape if options.shape else 'box'
+	password = getpass.unix_getpass("Enter your password:", sys.stderr) if options.password else DEFAULTS['password']
+	username = options.username if options.username else DEFAULTS['username']
+	database = options.database if options.database else DEFAULTS['database']
+	filename = options.filename if options.filename else DEFAULTS['filename']
+	program  = options.program if options.program and options.program in PROGRAMS else DEFAULTS['program']
+	shape    = options.shape if options.shape else DEFAULTS['shape']
 	
 	db = MySQLdb.connect(host='127.0.0.1', user=username, passwd=password, db=database)
 	cur1 = db.cursor()
