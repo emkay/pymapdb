@@ -4,6 +4,8 @@ import MySQLdb
 import re, sys, getpass
 from optparse import OptionParser
 
+PROGRAMS = ['dot', 'circo', 'neato']
+
 def write(G):
 	s=G.string()
 	print s
@@ -41,6 +43,8 @@ def parse_setup():
 		help="Compile down to graphviz and send to STDOUT")
 	parser.add_option("-n", "--noimage", action="store_true", dest="noimage",
 		help="Do not make an image. Implies that you meant to say -g as well.")
+	parser.add_option("-s", "--shape", action="store", type="string", dest="shape", 
+		help="Set the shape of the nodes")
 	if not sys.argv[1:]:
 		parser.print_help()
 		exit(2)
@@ -69,17 +73,22 @@ def main():
 	else:
 		filename = 'temp.png'
 
-	if options.program and options.program in ['neato', 'circo', 'dot']:
+	if options.program and options.program in PROGRAMS:
 		program = options.program
 	else:
 		program = 'circo'
+	
+	if options.shape:
+		shape = options.shape
+	else:
+		shape = 'box'
 			
 	db = MySQLdb.connect(host='127.0.0.1', user=username, passwd=password, db=database)
 	cur1 = db.cursor()
 	numrows = cur1.execute('SHOW tables')
 
 	G=pgv.AGraph()
-	G.node_attr['shape']='box'
+	G.node_attr['shape']=shape
 
 	fkc_matcher = re.compile('CONSTRAINT')
 
