@@ -5,7 +5,7 @@ import re, sys, getpass
 from optparse import OptionParser
 
 PROGRAMS = ['dot', 'circo', 'neato']
-DEFAULTS = {'user': '', 'password': '', 'database': '', 'filename': 'temp.png', 'shape': 'box', 'program': 'circo'}
+DEFAULTS = {'user': '', 'password': '', 'host': '127.0.0.1', 'database': '', 'filename': 'temp.png', 'shape': 'box', 'program': 'circo'}
 
 def write(G):
 	s=G.string()
@@ -45,7 +45,9 @@ def parse_setup():
 	parser.add_option("-n", "--noimage", action="store_true", dest="noimage",
 		help="Do not make an image. Implies that you meant to say -g as well.")
 	parser.add_option("-s", "--shape", action="store", type="string", dest="shape", 
-		help="Set the shape of the nodes")
+		help="Set the shape of the nodes.")
+	parser.add_option("-m", "--host", action="store", type="string", dest="host",
+		help="The host where the database lives.")
 	if not sys.argv[1:]:
 		parser.print_help()
 		exit(2)
@@ -60,8 +62,8 @@ def main():
 	filename = options.filename if options.filename else DEFAULTS['filename']
 	program  = options.program if options.program and options.program in PROGRAMS else DEFAULTS['program']
 	shape    = options.shape if options.shape else DEFAULTS['shape']
-	
-	db = MySQLdb.connect(host='127.0.0.1', user=username, passwd=password, db=database)
+	host     = options.host if options.host else DEFAULTS['host']
+	db = MySQLdb.connect(host=host, user=username, passwd=password, db=database)
 	cur1 = db.cursor()
 	numrows = cur1.execute('SHOW tables')
 
