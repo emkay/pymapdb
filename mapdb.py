@@ -6,6 +6,7 @@ from optparse import OptionParser
 
 PROGRAMS = ['dot', 'circo', 'neato']
 DEFAULTS = {'user': '', 'password': '', 'host': '127.0.0.1', 'database': '', 'filename': 'temp.png', 'shape': 'box', 'program': 'circo'}
+MAX_TABLES_PER_IMAGE = 30
 
 def write(G):
 	s=G.string()
