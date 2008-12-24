@@ -74,8 +74,11 @@ def main():
 	fkc_matcher = re.compile('CONSTRAINT')
 
 	if numrows > 0:
+		table_counter = 0
+		filename_counter = 1
 		rows = cur1.fetchall()
 		for row in rows:
+			table_counter += 1
 			create_table_num_rows = cur1.execute('SHOW CREATE TABLE ' + row[0])
 			if create_table_num_rows > 0:
 				create_table_rows = cur1.fetchall()
@@ -89,6 +92,11 @@ def main():
 								pk = clean_pk(keys[1])
 								table_pk = pk.split(' ')
 								fk = clean_fk(keys[0])
+								if table_counter == MAX_TABLES_PER_IMAGE and not options.noimage:
+									filename_split = filename.split('.')
+									new_filename = filename_split[0] + filename_counter + '.' + filename_split[1]
+									G.draw(new_filename, prog=program)
+									G = pgv.AGraph()
 								G.add_edge('table: ' + table_pk[0] + ' primary key:' + table_pk[1], 'table: ' + row[0] + ' foreign key:' + fk)
 
 	cur1.close()
