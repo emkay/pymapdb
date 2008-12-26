@@ -94,8 +94,10 @@ def main():
 								fk = clean_fk(keys[0])
 								if table_counter == MAX_TABLES_PER_IMAGE and not options.noimage:
 									filename_split = filename.split('.')
-									new_filename = filename_split[0] + filename_counter + '.' + filename_split[1]
+									new_filename = filename_split[0] + str(filename_counter) + '.' + filename_split[1]
 									G.draw(new_filename, prog=program)
+									table_counter = 0
+									filename_counter += 1
 									G = pgv.AGraph()
 								G.add_edge('table: ' + table_pk[0] + ' primary key:' + table_pk[1], 'table: ' + row[0] + ' foreign key:' + fk)
 
@@ -105,8 +107,11 @@ def main():
 	if options.graphviz or options.noimage:
 		write(G)
 	
-	if not options.noimage:
-		G.draw(filename, prog=program)
+	if not options.noimage and table_counter < MAX_TABLES_PER_IMAGE:
+		filename_counter += 1
+		filename_split = filename.split('.')
+		new_filename = filename_split[0] + str(filename_counter) + '.' + filename_split[1]
+		G.draw(new_filename, prog=program)
 
 if __name__ == "__main__":
 	main()
