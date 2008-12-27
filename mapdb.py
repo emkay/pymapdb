@@ -99,6 +99,7 @@ def main():
 									table_counter = 0
 									filename_counter += 1
 									G = pgv.AGraph()
+									G.node_attr['shape']=shape
 								G.add_edge('table: ' + table_pk[0] + ' primary key:' + table_pk[1], 'table: ' + row[0] + ' foreign key:' + fk)
 
 	cur1.close()
