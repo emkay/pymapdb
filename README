@@ -1,18 +1,11 @@
 A simple MySQL DB mapping application. Feed it a MySQL InnoDB database and it will produce a graph and/or Graphviz code.
 
-This application depends on graphviz being installed as well as pygraphviz and MySQLdb.
+This application depends on graphviz being installed as well as pygraphviz and MySQLdb. 
 
-Usage: mapdb.py [options]
+To install everything you need to get up and running on Debian installations run:
+	
+	sudo apt-get install graphviz python-pygraphviz python-mysqldb
 
-Options:
-  -h, --help            show this help message and exit
-  -u USER, --user=USER  MySQL user name
-  -p, --password        Require a password.
-  -d DATABASE, --database=DATABASE
-                        MySQL database name
-  -f FILENAME, --file=FILENAME
-                        Name of file to place compiled graphviz in.
-  -c PROGRAM, --program=PROGRAM
-  -g, --graphviz        Compile down to graphviz and send to STDOUT
-  -n, --noimage         Do not make an image. Implies that you meant to say -g
-                        as well.
+If you need further instructions pygraphviz can be found at http://networkx.lanl.gov/pygraphviz/download.html and Graphviz at http://www.graphviz.org/.
+
+The node shape option defaults to box, but can take any shapes listed here: http://www.graphviz.org/doc/info/shapes.html.
