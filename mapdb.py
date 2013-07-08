@@ -79,7 +79,7 @@ def main():
 		rows = cur1.fetchall()
 		for row in rows:
 			table_counter += 1
-			create_table_num_rows = cur1.execute('SHOW CREATE TABLE ' + row[0])
+			create_table_num_rows = cur1.execute('SHOW CREATE TABLE `%s`' % row[0])
 			if create_table_num_rows > 0:
 				create_table_rows = cur1.fetchall()
 				for create_table_row in create_table_rows:
